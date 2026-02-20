@@ -1,0 +1,86 @@
+.about {
+  background-color: #121212;
+  color: #f2ede7;
+}
+
+/* -------- HERO -------- */
+.about-hero {
+  text-align: center;
+  padding: 90px 20px 60px;
+  background: #1b1b1b;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.about-hero h1 {
+  font-size: 3rem;
+  color: #e2c7a8;
+}
+
+.about-hero p {
+  font-size: 1.3rem;
+  opacity: 0.85;
+  margin-top: 10px;
+}
+
+/* -------- BODY -------- */
+.about-body {
+  max-width: 1300px;
+  margin: 70px auto;
+  padding: 0 25px;
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.about-left {
+  flex: 1;
+  min-width: 330px;
+}
+
+.about-left h2 {
+  font-size: 1.9rem;
+  color: #e2c7a8;
+  margin-bottom: 10px;
+  margin-top: 25px;
+}
+
+.about-left p {
+  line-height: 1.7;
+  margin-bottom: 15px;
+  opacity: 0.92;
+}
+
+/* -------- RIGHT IMAGES -------- */
+.about-right {
+  flex: 1;
+  min-width: 330px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.about-right img {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.45);
+  border: 1px solid #2a2a2a;
+  transition: 0.4s ease;
+}
+
+.about-right img:hover {
+  transform: scale(1.02);
+}
+
+/* -------- RESPONSIVE -------- */
+@media (max-width: 900px) {
+  .about-body {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .about-left h2 {
+    margin-top: 40px;
+  }
+}
