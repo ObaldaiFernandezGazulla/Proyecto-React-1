@@ -40,10 +40,14 @@ churreria-oba/
 │   ├── pages/
 │   │   ├── home/
 │   │   ├── about/
-│   │   └── contact/
+│   │   |── contact/
+|   |   └── reviews/
 │   ├── data/
 │   │   └── destinations.js
+│   ├── services/
+│   │   └── reviews.service.js
 │   ├── App.jsx
+│   ├── firebase.js
 │   ├── index.css
 │   └── main.jsx
 └── README.md

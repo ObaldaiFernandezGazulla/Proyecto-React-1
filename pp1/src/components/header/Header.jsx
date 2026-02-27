@@ -16,6 +16,7 @@ function Header() {
         <Link to="/" onClick={() => setMenuOpen(false)}>Inicio</Link>
         <Link to="/about" onClick={() => setMenuOpen(false)}>Sobre Nosotros</Link>
         <Link to="/contact" onClick={() => setMenuOpen(false)}>Contacto</Link>
+        <Link to="/reviews" onClick={() => setMenuOpen(false)}>Reseñas</Link>
       </nav>
 
       {/* HAMBURGUER */}
