@@ -13,8 +13,7 @@ Browse our products, learn about us, and get in touch.
 
 ### Installation
 ```bash
-git clone https://github.com/yourusername/churreria-oba.git
-cd churreria-oba
+git clone https://github.com/ObaldaiFernandezGazulla/Proyecto-React-1.git
 npm install
 npm run dev
 ```
