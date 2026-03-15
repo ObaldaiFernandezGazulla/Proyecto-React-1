@@ -1,5 +1,5 @@
 import db from "../firebase";
-import { ref, get, remove, push } from "firebase/database";
+import { ref, get, push, remove, update } from "firebase/database";
 
 const dbRef = ref(db, "/reviews");
 
@@ -9,19 +9,25 @@ const getAllReviews = () => {
 
 const addReviews = (username, rating, comment) => {
   return push(dbRef, {
-    username: username,
-    rating: rating,
-    comment: comment
+    username,
+    rating,
+    comment,
   });
 };
 
-const removeReviews = (key) => {
-  const dbRefReviews = ref(db, `/reviews/${key}`);
-  return remove(dbRefReviews);
+const removeReview = (key) => {
+  const dbRefReview = ref(db, `/reviews/${key}`);
+  return remove(dbRefReview);
+};
+
+const updateReview = (key, data) => {
+  const dbRefReview = ref(db, `/reviews/${key}`);
+  return update(dbRefReview, data);
 };
 
 export default {
   getAllReviews,
   addReviews,
-  removeReviews,
+  removeReview,
+  updateReview
 };

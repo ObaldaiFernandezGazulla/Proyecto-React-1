@@ -5,6 +5,12 @@ Browse our products, learn about us, and get in touch.
 
 ---
 
+## 🌐 Live Demo
+You can view the live application deployed here:  
+**[https://reactfirebasesimpleexample.web.app/](https://reactfirebasesimpleexample.web.app/)**
+
+---
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -30,7 +36,8 @@ churreria-oba/
 ├── public/
 │   ├── logo-oba.png
 │   ├── about-local.jpg
-│   └── about-churros.jpg
+│   ├── about-churros.jpg
+│   └── carta.xml           
 ├── src/
 │   ├── components/
 │   │   ├── header/
@@ -39,8 +46,12 @@ churreria-oba/
 │   ├── pages/
 │   │   ├── home/
 │   │   ├── about/
-│   │   |── contact/
-|   |   └── reviews/
+│   │   ├── contact/
+│   │   ├── reviews/        
+│   │   ├── menu/         
+│   │   ├── privacy/      
+│   │   ├── cookies/   
+│   │   └── terms/        
 │   ├── data/
 │   │   └── destinations.js
 │   ├── services/
@@ -72,9 +83,27 @@ churreria-oba/
 - Contact information and schedule
 - Contact form with name, email, and message fields
 
+# Reviews
+- Create: Allows users to add new reviews to the system.
+- Read: Real-time synchronization with Firebase to display the list of opinions.
+- Update: Ability to modify username, rating, and comments.
+- Delete: Remove records with automatic state update (JSON Array).
+
+# Menu
+Detailed product page.
+RSS feed: official feed via carta.xml for products and prices.
+
+# RSS Feed Reader Integration
+The RSS feed integration has been verified using an external reader, linking each product in the menu to the official URL of the project hosted on Firebase.
+
+![alt text](image-1.png)
+
 ---
 
 ## 🛠️ Third-Party Components
+
+### Firebase Hosting
+Project deployed and managed via Firebase infrastructure for public and secure access.
 
 ### Leaflet
 Used for the interactive map on the Contact page.  

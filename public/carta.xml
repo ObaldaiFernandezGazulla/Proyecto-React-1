@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+  <channel>
+    <title>Carta Churrería Oba</title>
+    <link>https://reactfirebasesimpleexample.web.app/menu</link>
+    <description>Nuestra carta actualizada de productos artesanos</description>
+    <item>
+      <title>Churros Tradicionales - 3.50€</title>
+      <link>https://reactfirebasesimpleexample.web.app/menu</link>
+      <description>Ración de 6 churros artesanos hechos al momento.</description>
+    </item>
+    <item>
+      <title>Chocolate a la Taza - 2.50€</title>
+      <link>https://reactfirebasesimpleexample.web.app/menu</link>
+      <description>Chocolate espeso artesanal, receta de la casa.</description>
+    </item>
+    <item>
+      <title>Porras de la Abuela - 4.00€</title>
+      <link>https://reactfirebasesimpleexample.web.app/menu</link>
+      <description>Ración de 3 porras extra grandes y esponjosas.</description>
+    </item>
+    <item>
+      <title>Café con Leche - 1.50€</title>
+      <link>https://reactfirebasesimpleexample.web.app/menu</link>
+      <description>Café de tueste natural con leche fresca.</description>
+    </item>
+  </channel>
+</rss>

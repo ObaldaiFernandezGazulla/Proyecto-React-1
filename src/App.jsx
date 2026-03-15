@@ -8,6 +8,7 @@ import Reviews from "./pages/reviews/reviews"
 import Privacy from "./pages/privacy/Privacy"
 import Cookies from "./pages/cookies/Cookies"
 import Terms from "./pages/terms/Terms"
+import Menu from "./pages/menu/Menu"
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/privacy" element={<Privacy/>} />
         <Route path="/cookies" element={<Cookies/>} />
         <Route path="/terms" element={<Terms/>} />
+        <Route path="/menu" element={<Menu/>} />
       </Routes>
 
       <Footer />
