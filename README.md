@@ -96,7 +96,7 @@ RSS feed: official feed via carta.xml for products and prices.
 # RSS Feed Reader Integration
 The RSS feed integration has been verified using an external reader, linking each product in the menu to the official URL of the project hosted on Firebase.
 
-![alt text](image-1.png)
+(image-1.png)
 
 ---
 
