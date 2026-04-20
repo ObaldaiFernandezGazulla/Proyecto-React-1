@@ -18,7 +18,7 @@ const firebaseConfig = {
   storageBucket: "reactfirebasesimpleexample.firebasestorage.app",
 
   messagingSenderId: "27681807510",
-
+  
   appId: "1:27681807510:web:723c45c48a9a18affa76b7"
 
 };

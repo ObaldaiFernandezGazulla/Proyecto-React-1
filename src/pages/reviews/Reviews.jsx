@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
-import { FaRegTrashAlt, FaEdit } from 'react-icons/fa'; 
+import { FaRegTrashAlt, FaEdit, FaFileDownload, FaFileUpload } from 'react-icons/fa'; 
 import reviewsService from "../../services/reviews.service";
+import { saveFileInFormat } from "../../utils/file-export";
+import { importFileToInternalJson } from "../../utils/file-import";
 import "./Reviews.css";
 
 function Reviews() {
@@ -23,15 +25,57 @@ function Reviews() {
         });
         setReviews([...allReviews]);
       })
-      .catch((err) => {
-        console.error(err);
-      });
+      .catch((err) => console.error(err));
   }
 
-  const removeReview = (key) => {
-    reviewsService.removeReview(key).then(() => {
+  // --- LÓGICA DE EXPORTACIÓN ---
+  const handleExport = async (format) => {
+    if (reviews.length === 0) return alert("No hay datos para exportar");
+
+    try {
+      if (format === "json") {
+        // Para JSON enviamos el array de objetos directamente
+        await saveFileInFormat("json", reviews, "reviews.json");
+      } 
+      else if (format === "csv") {
+        const cabecera = "username,rating,comment\n";
+        const filas = reviews.map(r => `${r.username},${r.rating},${r.comment}`).join("\n");
+        await saveFileInFormat("csv", cabecera + filas, "reviews.csv");
+      } 
+      else if (format === "xml") {
+        let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<reviews>\n`;
+        reviews.forEach(r => {
+          xml += `  <review>\n    <username>${r.username}</username>\n    <rating>${r.rating}</rating>\n    <comment>${r.comment}</comment>\n  </review>\n`;
+        });
+        xml += `</reviews>`;
+        await saveFileInFormat("xml", xml, "reviews.xml");
+      }
+    } catch (error) {
+      console.error("Exportación cancelada o fallida");
+    }
+  };
+
+  // --- LÓGICA DE IMPORTACIÓN ---
+  const handleImport = async () => {
+    try {
+      const res = await importFileToInternalJson();
+      // res.data contiene los datos parseados según el formato
+      // Debemos limpiar las keys antiguas si vienen del archivo para que Firebase genere nuevas
+      const dataToImport = Array.isArray(res.data) ? res.data : [res.data];
+      
+      for (const item of dataToImport) {
+        await reviewsService.addReviews(item.username, item.rating, item.comment);
+      }
+      
+      alert("Importación completada con éxito");
       getAllReviews();
-    });
+    } catch (error) {
+      console.error("Error al importar:", error);
+    }
+  };
+
+  const removeReview = (key) => {
+    reviewsService.removeReview(key).then(() => getAllReviews());
   }
 
   const addReviews = (e) => {
@@ -42,7 +86,7 @@ function Reviews() {
 
     reviewsService.addReviews(username, rating, comment).then((res) => {
       refform.current.reset();
-      setReviews(oldValues => [...oldValues, { key: res.key, username, rating, comment }]);
+      getAllReviews();
     });
   }
 
@@ -57,10 +101,7 @@ function Reviews() {
         rating: newRating || review.rating, 
         comment: newComment || review.comment 
       };
-      
-      reviewsService.updateReview(review.key, updatedData).then(() => {
-        getAllReviews();
-      });
+      reviewsService.updateReview(review.key, updatedData).then(() => getAllReviews());
     }
   }
 
@@ -73,6 +114,22 @@ function Reviews() {
       <section className="reviews-hero">
         <h1>Reseñas</h1>
         <p>Conoce lo que nuestros clientes opinan sobre nuestros servicios.</p>
+        
+        {/* NUEVA SECCIÓN DE BOTONES DE IMPORT/EXPORT */}
+        <div className="admin-controls">
+          <button className="btn-admin import" onClick={handleImport}>
+            <FaFileUpload /> Importar
+          </button>
+          <button className="btn-admin export" onClick={() => handleExport('json')}>
+            <FaFileDownload /> JSON
+          </button>
+          <button className="btn-admin export" onClick={() => handleExport('csv')}>
+            <FaFileDownload /> CSV
+          </button>
+          <button className="btn-admin export" onClick={() => handleExport('xml')}>
+            <FaFileDownload /> XML
+          </button>
+        </div>
       </section>
 
       <section className="reviews-body">
