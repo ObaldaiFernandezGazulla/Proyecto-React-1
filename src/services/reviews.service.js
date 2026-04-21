@@ -1,4 +1,4 @@
-import db from "../firebase";
+import db from "./firebase.js";
 import { ref, get, push, remove, update } from "firebase/database";
 
 const dbRef = ref(db, "/reviews");

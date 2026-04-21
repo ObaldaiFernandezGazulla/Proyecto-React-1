@@ -49,15 +49,18 @@ churreria-oba/
 │   │   ├── contact/
 │   │   ├── reviews/        
 │   │   ├── menu/         
-│   │   ├── privacy/      
+│   │   ├── privacy/  
 │   │   ├── cookies/   
 │   │   └── terms/        
 │   ├── data/
 │   │   └── destinations.js
 │   ├── services/
-│   │   └── reviews.service.js
+│   │   ├── reviews.service.js
+│   │   └── firebase.js
+│   ├── utils/
+│   │   ├── file-export.js
+│   │   └── file-import.js
 │   ├── App.jsx
-│   ├── firebase.js
 │   ├── index.css
 │   └── main.jsx
 └── README.md
@@ -84,10 +87,28 @@ churreria-oba/
 - Contact form with name, email, and message fields
 
 # Reviews
-- Create: Allows users to add new reviews to the system.
-- Read: Real-time synchronization with Firebase to display the list of opinions.
-- Update: Ability to modify username, rating, and comments.
-- Delete: Remove records with automatic state update (JSON Array).
+
+### Funcionalidades principales
+- Create: Permite a los usuarios añadir nuevas reseñas al sistema mediante un formulario validado.
+- Read: Sincronización en tiempo real con Firebase Realtime Database para mostrar la lista de opiniones.
+- Update: Capacidad de modificar usuario, valoración y comentarios, con validación de integridad de datos.
+- Delete: Eliminación de registros con actualización automática del estado del componente.
+
+### Gestión de Datos y Archivos
+- Importación: Soporte para cargar datos desde archivos externos (**JSON, CSV y XML**). El sistema normaliza el contenido y lo persiste automáticamente en la base de datos.
+- Exportación: Generación de backups o reportes en formatos **JSON, CSV y XML**, permitiendo al usuario descargar su historial de reseñas localmente.
+- Arquitectura de Servicios: Acceso a Firebase centralizado en la capa `services/` para asegurar un desacoplamiento eficiente entre la lógica de negocio y la interfaz.
+
+### Experiencia de Usuario (UX)
+- Interfaz Fluida: Uso de un Modal personalizado para la edición de reseñas, eliminando el uso de ventanas nativas bloqueantes (`prompt`).
+- Notificaciones: Sistema de *toasts* (notificaciones no intrusivas) para feedback inmediato tras operaciones de importación, exportación o edición.
+- Asincronía: Implementación de patrones `async/await` para evitar el bloqueo del hilo principal durante las llamadas a la base de datos o el procesamiento de archivos.
+
+### Archivos de ejemplo para importación
+Para facilitar el uso de la funcionalidad de importación, el sistema permite descargar plantillas de prueba en los formatos soportados:
+- [Descargar template.json](https://drive.google.com/file/d/1T2Fgs4H7ulf51pkSGMXOuqEUs_S_7V3D/view?usp=sharing)
+- [Descargar template.csv](https://drive.google.com/file/d/1gPYvlLp8ZrO-7ALDTH76pafCygKkMDLV/view?usp=sharing)
+- [Descargar template.xml](https://drive.google.com/file/d/1PiekiehfQF5AHIoBH3amrQng3gl-BTe_/view?usp=sharing)
 
 # Menu
 Detailed product page.

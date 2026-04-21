@@ -7,7 +7,14 @@ import "./Reviews.css";
 
 function Reviews() {
   const [reviews, setReviews] = useState([]);
+  const [editingReview, setEditingReview] = useState(null);
+  const [notification, setNotification] = useState(null);
   const refform = useRef();
+
+  const showNotification = (msg) => {
+    setNotification(msg);
+    setTimeout(() => setNotification(null), 3000);
+  };
 
   const getAllReviews = () => {
     reviewsService.getAllReviews()
@@ -28,13 +35,11 @@ function Reviews() {
       .catch((err) => console.error(err));
   }
 
-  // --- LÓGICA DE EXPORTACIÓN ---
   const handleExport = async (format) => {
-    if (reviews.length === 0) return alert("No hay datos para exportar");
+    if (reviews.length === 0) return showNotification("No hay datos para exportar");
 
     try {
       if (format === "json") {
-        // Para JSON enviamos el array de objetos directamente
         await saveFileInFormat("json", reviews, "reviews.json");
       } 
       else if (format === "csv") {
@@ -50,32 +55,35 @@ function Reviews() {
         xml += `</reviews>`;
         await saveFileInFormat("xml", xml, "reviews.xml");
       }
+      showNotification("Exportación realizada con éxito");
     } catch (error) {
+      showNotification("Error en la exportación");
       console.error("Exportación cancelada o fallida");
     }
   };
 
-  // --- LÓGICA DE IMPORTACIÓN ---
   const handleImport = async () => {
     try {
       const res = await importFileToInternalJson();
-      // res.data contiene los datos parseados según el formato
-      // Debemos limpiar las keys antiguas si vienen del archivo para que Firebase genere nuevas
       const dataToImport = Array.isArray(res.data) ? res.data : [res.data];
       
       for (const item of dataToImport) {
         await reviewsService.addReviews(item.username, item.rating, item.comment);
       }
       
-      alert("Importación completada con éxito");
+      showNotification("Importación completada con éxito");
       getAllReviews();
     } catch (error) {
+      showNotification("Error al importar datos");
       console.error("Error al importar:", error);
     }
   };
 
   const removeReview = (key) => {
-    reviewsService.removeReview(key).then(() => getAllReviews());
+    reviewsService.removeReview(key).then(() => {
+      showNotification("Reseña eliminada");
+      getAllReviews();
+    });
   }
 
   const addReviews = (e) => {
@@ -86,23 +94,23 @@ function Reviews() {
 
     reviewsService.addReviews(username, rating, comment).then((res) => {
       refform.current.reset();
+      showNotification("Reseña añadida correctamente");
       getAllReviews();
     });
   }
 
-  const updateReview = (review) => {
-    const newUsername = prompt("Editar Usuario:", review.username);
-    const newRating = prompt("Editar Valoración:", review.rating);
-    const newComment = prompt("Editar Comentario:", review.comment);
-
-    if (newUsername !== null && newRating !== null && newComment !== null) {
-      const updatedData = { 
-        username: newUsername || review.username, 
-        rating: newRating || review.rating, 
-        comment: newComment || review.comment 
-      };
-      reviewsService.updateReview(review.key, updatedData).then(() => getAllReviews());
-    }
+  const updateReview = (e) => {
+    e.preventDefault();
+    const updatedData = { 
+      username: e.target.username.value, 
+      rating: e.target.rating.value, 
+      comment: e.target.comment.value 
+    };
+    reviewsService.updateReview(editingReview.key, updatedData).then(() => {
+      showNotification("Reseña actualizada correctamente");
+      setEditingReview(null);
+      getAllReviews();
+    });
   }
 
   useEffect(() => {
@@ -111,11 +119,24 @@ function Reviews() {
 
   return (
     <div className="reviews">
+      {notification && <div className="toast-notification">{notification}</div>}
+
+      {editingReview && (
+        <div className="modal-overlay">
+          <form className="modal-content" onSubmit={updateReview}>
+            <h3>Editar Reseña</h3>
+            <input type="text" name="username" defaultValue={editingReview.username} required />
+            <input type="text" name="rating" defaultValue={editingReview.rating} required />
+            <input type="text" name="comment" defaultValue={editingReview.comment} required />
+            <button type="submit">Guardar</button>
+            <button type="button" onClick={() => setEditingReview(null)}>Cancelar</button>
+          </form>
+        </div>
+      )}
+
       <section className="reviews-hero">
         <h1>Reseñas</h1>
         <p>Conoce lo que nuestros clientes opinan sobre nuestros servicios.</p>
-        
-        {/* NUEVA SECCIÓN DE BOTONES DE IMPORT/EXPORT */}
         <div className="admin-controls">
           <button className="btn-admin import" onClick={handleImport}>
             <FaFileUpload /> Importar
@@ -151,7 +172,7 @@ function Reviews() {
                 <p>{r.comment}</p>
               </div>
               <div className="review-actions">
-                <FaEdit onClick={() => updateReview(r)} style={{ cursor: 'pointer', marginRight: '10px' }} />
+                <FaEdit onClick={() => setEditingReview(r)} style={{ cursor: 'pointer', marginRight: '10px' }} />
                 <FaRegTrashAlt onClick={() => removeReview(r.key)} style={{ cursor: 'pointer' }} />
               </div>
             </div>
