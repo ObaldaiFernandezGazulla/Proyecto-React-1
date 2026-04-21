@@ -88,27 +88,27 @@ churreria-oba/
 
 # Reviews
 
-### Funcionalidades principales
-- Create: Permite a los usuarios añadir nuevas reseñas al sistema mediante un formulario validado.
-- Read: Sincronización en tiempo real con Firebase Realtime Database para mostrar la lista de opiniones.
-- Update: Capacidad de modificar usuario, valoración y comentarios, con validación de integridad de datos.
-- Delete: Eliminación de registros con actualización automática del estado del componente.
+### Key Features
+- Create: It allows users to add new reviews to the system using a validated form.
+- Read: Real-time synchronization with the Firebase Realtime Database to display the list of reviews.
+- Update: Ability to edit user information, ratings, and comments, with data integrity validation.
+- Delete: Deleting records with automatic updating of the component's status.
 
-### Gestión de Datos y Archivos
-- Importación: Soporte para cargar datos desde archivos externos (**JSON, CSV y XML**). El sistema normaliza el contenido y lo persiste automáticamente en la base de datos.
-- Exportación: Generación de backups o reportes en formatos **JSON, CSV y XML**, permitiendo al usuario descargar su historial de reseñas localmente.
-- Arquitectura de Servicios: Acceso a Firebase centralizado en la capa `services/` para asegurar un desacoplamiento eficiente entre la lógica de negocio y la interfaz.
+### Data and Records Management
+- Import: Support for loading data from external files (**JSON, CSV, and XML**). The system normalizes the content and automatically saves it to the database.
+- Export: Generate backups or reports in **JSON, CSV, and XML** formats, allowing users to download their review history locally.
+- Service-Oriented Architecture: Centralized access to Firebase in the `services/` layer to ensure effective decoupling between business logic and the user interface.
 
-### Experiencia de Usuario (UX)
-- Interfaz Fluida: Uso de un Modal personalizado para la edición de reseñas, eliminando el uso de ventanas nativas bloqueantes (`prompt`).
-- Notificaciones: Sistema de *toasts* (notificaciones no intrusivas) para feedback inmediato tras operaciones de importación, exportación o edición.
-- Asincronía: Implementación de patrones `async/await` para evitar el bloqueo del hilo principal durante las llamadas a la base de datos o el procesamiento de archivos.
+### User Experience (UX)
+- Seamless Interface: Use of a custom modal for editing reviews, eliminating the use of disruptive native windows (`prompt`).
+- Notifications: A *toast* system (non-intrusive notifications) for immediate feedback after import, export, or editing operations.
+- Asynchrony: Implementing `async/await` patterns to prevent the main thread from blocking during database calls or file processing.
 
-### Archivos de ejemplo para importación
-Para facilitar el uso de la funcionalidad de importación, el sistema permite descargar plantillas de prueba en los formatos soportados:
-- [Descargar template.json](https://drive.google.com/file/d/1T2Fgs4H7ulf51pkSGMXOuqEUs_S_7V3D/view?usp=sharing)
-- [Descargar template.csv](https://drive.google.com/file/d/1gPYvlLp8ZrO-7ALDTH76pafCygKkMDLV/view?usp=sharing)
-- [Descargar template.xml](https://drive.google.com/file/d/1PiekiehfQF5AHIoBH3amrQng3gl-BTe_/view?usp=sharing)
+### Sample files for import
+To make it easier to use the import feature, the system allows you to download sample templates in the supported formats:
+- [Download template.json](https://drive.google.com/file/d/1T2Fgs4H7ulf51pkSGMXOuqEUs_S_7V3D/view?usp=sharing)
+- [Download template.csv](https://drive.google.com/file/d/1gPYvlLp8ZrO-7ALDTH76pafCygKkMDLV/view?usp=sharing)
+- [Download template.xml](https://drive.google.com/file/d/1PiekiehfQF5AHIoBH3amrQng3gl-BTe_/view?usp=sharing)
 
 # Menu
 Detailed product page.
